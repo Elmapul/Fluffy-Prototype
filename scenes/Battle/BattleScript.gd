@@ -4,6 +4,7 @@ var selected=[]
 var currentAttacks=[2,3,4,0]
 var enemyHP=100
 var playerHP=100
+var playerStatus="paralisado"
 
 func _ready():
 	#var teste=data.get_item("elements", "water")
@@ -48,22 +49,40 @@ func _on_Button3_pressed():
 
 
 func useAttack(aux):
+	
 	var cAtk=currentAttacks[aux]
 	var hitRate=0
-	#hitRate=selected[cAtk].hitRate
-	var hasHit=randi()%11+1
-	if (hasHit+hitRate >5):
-		print("acertou? ", hasHit)
-		var damage=selected[cAtk].base_damage 
-		#damage+=+ playerAtk
-		var hasCrit=randi()%11+1
-		if (hasCrit>5):
-			damage*=2
-			print("golpe critico!")
-		enemyHP-=damage
-		get_node("eHP").set_value(enemyHP)
-	else:
-		print("errou")
+
+		#hitRate=selected[cAtk].hitRate
+	var canAttack=testStatus()
+	if(canAttack):
+		var hasHit=randi()%11+1
+		if (hasHit+hitRate >5):
+			print("acertou? ", hasHit)
+			var damage=selected[cAtk].base_damage 
+			#damage+=+ playerAtk
+			var hasCrit=randi()%11+1
+			if (hasCrit>5):
+				damage*=2
+				print("golpe critico!")
+			enemyHP-=damage
+			get_node("eHP").set_value(enemyHP)
+		else:
+			print("errou") #com a voz do faustão
 	pass
-	
+
+func testStatus():
+		if (playerStatus=="paralisado"||playerStatus=="dormindo"):
+			var curePar=randi()%11+1
+			if (curePar>5):
+				playerStatus=""
+				print("recuperou da paralisia") #
+				return true
+			else:
+				return false
+		else:
+			return true
+
 var attackList=[]
+
+
