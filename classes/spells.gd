@@ -1,6 +1,6 @@
 extends "res://addons/godot_data_editor/data_item.gd"
 
-export(String) var your_string_property = ""
+export(String) var name = ""
 export(bool) var your_boolean_property = true
 export(Color) var your_color_property = Color(1,0,1)
 export(String, "water","fire") var element="water"
