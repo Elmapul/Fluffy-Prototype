@@ -1,7 +1,7 @@
 extends Node
 
 var selected=[]
-var currentAttacks=[2,3,4,0]
+var currentAttacks=[2,3,3,3]
 var enemyHP=100
 var playerHP=100
 var playerStatus="paralisado"
@@ -22,9 +22,14 @@ func _ready():
 	var ataques = data.get_items("spells")
 	for ataque in ataques.values():
 		selected[contar]=ataque
-		print(selected[contar].name)
-		print(selected[contar].base_damage)
+		#print(selected[contar].name)
+		#print(selected[contar].base_damage)
 		contar+=1
+	#for var butt in get_child("Buttons"):
+	var aux0 =4 #get_child_count("Buttons")
+	for butt in range(0,aux0):
+		get_node("Buttons").get_child(butt).set_text(selected[currentAttacks[butt]].name)
+		print(butt)
 	pass
 	
 
@@ -69,20 +74,20 @@ func useAttack(aux):
 			get_node("eHP").set_value(enemyHP)
 		else:
 			print("errou") #com a voz do faustão
-	pass
+
+
 
 func testStatus():
 		if (playerStatus=="paralisado"||playerStatus=="dormindo"):
 			var curePar=randi()%11+1
-			if (curePar>5):
+			if (curePar>9):
 				playerStatus=""
 				print("recuperou da paralisia") #
 				return true
 			else:
+				print("não pode atacar devido à paralisia")
 				return false
 		else:
 			return true
 
 var attackList=[]
-
-
